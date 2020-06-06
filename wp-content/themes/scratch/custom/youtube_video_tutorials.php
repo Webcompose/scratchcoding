@@ -46,12 +46,16 @@ function videos_admin_init(){
 function videos_meta_details(){
     $iframe = '<p><label for="iframe">Iframe:</label><br /><input type="text" size="70" id="iframe" name="iframe" value="'. htmlentities(get_videos_field("iframe")) .'" /></p>';
     echo $iframe;
+
+    $date = '<p><input type="hidden" class="datepicker" disabled size="70" placeholder="Date :" id="date" name="date" value="' . htmlentities(get_videos_field("date")) . '" /></p>';
+    echo $date;
 }
 
 function get_videos_field($field){
     global $post;
 
     $custom = get_post_custom($post->ID);
+    update_post_meta($post->ID, 'date', $post->post_date);
 
     if(isset($custom[$field])){
         return $custom[$field][0];
@@ -70,6 +74,7 @@ function save_videos_details(){
     }
 
     save_videos_field('iframe');
+    save_videos_field('date');
 }
 
 function save_videos_field($field){

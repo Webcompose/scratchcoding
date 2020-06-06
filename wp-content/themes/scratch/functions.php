@@ -230,3 +230,5 @@ function getVideos(){
     endwhile;
     return $videos;
 }
+
+require get_template_directory() . '/custom/custom-search-videos.php';

@@ -88,7 +88,53 @@ get_header();
 	<div class="container">
 		<h1 class="text-center">Video Tutorials</h1>
 
-		<div class="row mt-5">
+		<form action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="POST" id="filter">
+			<div class="row">
+				<div class="col-md-12">
+					<input type="text" class="w-100" placeholder="Rechercher" name="name">
+				</div>
+
+				<div class="col-md-12 mt-3">
+					<p>From date</p>
+					<input type="date" name="from_date" class="w-100">
+				</div>
+
+				<div class="col-md-12 mt-3">
+					<p>At date</p>
+					<input type="date" name="at_date" class="w-100">
+				</div>
+
+				<div class="categories mt-3">
+					<select class="w-100" name="categorie">
+						<option>Select Category</option>
+						<?php 
+							$categories = get_categories();
+
+							foreach ($categories as $categorie):
+						?>
+
+						<option value="<?php echo $categorie->term_id; ?>"><?php echo $categorie->name; ?></option>
+
+						<?php
+							endforeach;
+						?>
+					</select>
+				</div>
+
+				<div class="col-md-12 mt-3">
+					<button id="applyButton">OK</button>
+					<input type="hidden" name="action" value="myfilter3">
+				</div>
+			</div>
+		</form>
+
+		<div class="lds-spinner" style="display: none;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+		<div class="row mt-5" id="response_videos">
+			
+		</div>
+
+		<div class="row mt-5" id="video_posts">
 
 			<?php 
 				$videos = getVideos();
@@ -146,6 +192,30 @@ get_header();
 		});
 	});
 </script>
+
+<script type="text/javascript">
+  jQuery(function(jQuery){
+	  jQuery('#filter').submit(function(){
+	    var filter = jQuery('#filter');
+	    jQuery.ajax({
+	      url:filter.attr('action'),
+	      data: filter.serialize() + '&action=myfilter3',
+	      type:filter.attr('method'),
+	      beforeSend:function(xhr){
+	        // filter.hide();
+	        jQuery('#video_posts').hide();
+	        jQuery('.lds-spinner').show();
+	      },
+	      success:function(data){
+	        filter.show();
+	        jQuery('.lds-spinner').hide();
+	        jQuery('#response_videos').html(data); 
+	      }
+	    });
+	    return false;
+	  });
+	});
+	</script>
 
 <?php
 get_footer();
