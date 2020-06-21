@@ -32,6 +32,14 @@ function custom_search_videos(){
 		$date_search = array();
 	}
 
+	if($_POST['iframe'] == 'true'){
+		$iframe = array(
+			'key' => 'iframe',
+			'value' => '',
+			'compare' => '!='
+		);
+	}
+
 
 	$post_query = new WP_Query(
     array(
@@ -46,6 +54,7 @@ function custom_search_videos(){
       	'meta_query' => array(
       		'relation' => 'AND',
       		$date_search,
+      		$iframe
       	)
     )
 );

@@ -152,6 +152,15 @@ get_header();
 
 						?>	
 					</div>
+
+					<div class="filter_by_checkbox mt-5">
+						<div class="iframe checkboxs">
+							<input type="checkbox">
+							<input type="hidden" name="iframe" value="" id="iframe_hidden">
+							Iframe
+						</div>
+					</div>
+
 				</div>
 
 				<div class="col-md-12 mt-3">
@@ -248,6 +257,14 @@ get_header();
 	    return false;
 	  });
 	});
+	</script>
+
+	<script type="text/javascript">
+		jQuery('.checkboxs input[type="checkbox"]').change(function(){
+			var checked = jQuery(this).is(':checked');
+
+			jQuery('#iframe_hidden').val(checked);
+		});
 	</script>
 
 <?php
