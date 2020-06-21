@@ -39,6 +39,10 @@ function custom_search_videos(){
   		's' => $_POST['name'],
   		'cat' => $_POST['categorie'],
       	'order' => 'ASC',
+      	'date_query' => array(
+      		'relation' => 'AND',
+      		array('year' => implode(',',$_POST['years']))
+      	),
       	'meta_query' => array(
       		'relation' => 'AND',
       		$date_search,

@@ -104,7 +104,7 @@ get_header();
 					<input type="date" name="at_date" class="w-100">
 				</div>
 
-				<div class="categories mt-3">
+				<div class="categories mt-3 col-md-12">
 					<select class="w-100" name="categorie">
 						<option>Select Category</option>
 						<?php 
@@ -119,6 +119,39 @@ get_header();
 							endforeach;
 						?>
 					</select>
+				</div>
+
+				<div class="col-md-12 mt-5">
+					<div class="filter_by_years">
+						<?php 
+
+							$terms_year = array(
+								'post_type' => 'video-tutorials'
+							);
+
+							$years = array();
+							$query_year = new WP_Query( $terms_year );
+
+							if($query_year->have_posts()):
+								while($query_year->have_posts()): $query_year->the_post();
+									$year = get_the_date('Y');
+
+									if(!in_array($year, $years)){
+										$years[] = $year;
+										?>
+										<label class="container-checkbox">
+										<?php echo $year; ?>
+										<input type="checkbox" name="years[]" value="<?php echo $year; ?>">
+										<span class="checkmark"></span>
+									</label>
+									<?php
+									}
+								endwhile;
+							wp_reset_postdata();
+						endif;
+
+						?>	
+					</div>
 				</div>
 
 				<div class="col-md-12 mt-3">
