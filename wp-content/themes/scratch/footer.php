@@ -25,6 +25,15 @@
 			<div class="col-md-12 mt-3">
 				<hr>
 				<?php echo dynamic_sidebar('footer-1'); ?>
+			</div>
+
+			<div class="col-md-12 mt-3">
+				<hr>
+				<ul class="p-0 m-0">
+					<li><a href="<?php echo get_option('twitter_url'); ?>" target="_blank">Twitter</a></li>
+					<li><a href="<?php echo get_option('facebook_url'); ?>" target="_blank"> Facebook</a></li>
+					<li><a href="<?php echo get_option('instagram_url'); ?>" target="_blank">Instagram</a></li>
+				</ul>
 			</div>	
 		</div>
 	</div>
